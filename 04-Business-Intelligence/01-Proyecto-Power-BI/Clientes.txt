@@ -1,0 +1,108 @@
+CodCliente;Cliente;Tipo;Teléfono;Ciudad
+1;Adams, Fernando;Persona;373846615;Madrid
+2;Adams, Wyatt;Persona;646775929;Barcelona
+3;Alonso, Julio;Persona;667028591;Valencia
+4;Ana, Maria;Persona;707344341;Sevilla
+5;Anderson, Nicholas;Persona;743415512;Valencia
+6;Arthur, Jermaine;Persona;806106230;Barcelona
+7;Bailey, Angel;Persona;589416549;Valencia
+8;Baileya, Angela;Persona;209739312;Valencia
+9;Bebbington, Mark;Persona;738959030;Madrid
+10;Boulder Cnia;Empresa;396674800;Sevilla
+11;Bryant, Seth;Persona;765493328;Sevilla
+12;Buffalo Cnia;Empresa;314800578;Barcelona
+13;Burbank Cnia;Empresa;180874224;Alicante
+14;Canoga Parque;Empresa;230328451;Málaga
+15;Charles Cnia;Empresa;481100318;Madrid
+16;Charleston Cnia;Empresa;195780528;Málaga
+17;Chen, Dylan;Persona;209751676;Barcelona
+18;Coffs Harbour Cnia;Empresa;202735528;Bilbao
+19;Coleman, James;Persona;195511040;Pamplona
+20;Congo Mongo Estudio;Empresa;727374976;Barcelona
+21;Corda Empresa de Correos;Empresa;543323111;Valencia
+22;Dallas Producciones;Empresa;697211619;Madrid
+23;Davis, John;Persona;590199780;Valencia
+24;Diaz, Byron;Persona;434211154;Barcelona
+25;Diaz, Gabriel;Persona;656008264;Madrid
+26;Edwards, Nathan;Persona;558112040;Pamplona
+27;Englewood Cnia;Empresa;833593115;Valencia
+28;Evans, Devin;Persona;446730339;Valencia
+29;Evans, Noah;Persona;452804313;Valencia
+30;Falmouth Cnia;Empresa;665581108;Alicante
+31;Fiorilo Transportes y Correo;Empresa;465789765;Alicante
+32;Gao, Ronnie;Persona;442954865;Madrid
+33;Garcia, James;Persona;440495846;Málaga
+34;Geelong Cnia;Empresa;734079959;Málaga
+35;Gold Coast Accesorios;Empresa;858418641;Barcelona
+36;Gonzales, Caleb;Persona;624637112;Sevilla
+37;Gray, Isaiah;Persona;671694387;Sevilla
+38;Green, James;Persona;351869587;Zaragoza
+39;Greenville Cnia;Empresa;603746260;Madrid
+40;Griffin, Kyle;Persona;317279040;Alicante
+41;Griffin, Zachary;Persona;839101853;Alicante
+42;Grupo 3 Estudio de Abogados;Empresa;772795496;Barcelona
+43;Grupo Ases;Empresa;370845396;Bilbao
+44;Hernandez, Micheal;Persona;836211885;Bilbao
+45;Hill, Lucas;Persona;406578173;Barcelona
+46;Holyoke Producciones;Empresa;852769732;Pamplona
+47;Jackson, Nicholas;Persona;707614386;Pamplona
+48;Jackson, Noah;Persona;771116619;Madrid
+49;Johnson, Austin;Persona;617720204;Madrid
+50;Johnson, Benjamin;Persona;787521287;Pamplona
+51;Johnson, Dalton;Persona;599037926;Madrid
+52;Jota Cnia;Empresa;339269938;Valencia
+53;Kelly, Chase;Persona;258257412;Valencia
+54;Kiela Cnia;Empresa;231153346;Madrid
+55;Kolkata Cnia;Empresa;534865861;Sevilla
+56;Kumar, Kevin;Persona;757707873;Sevilla
+57;Kumar, Leonard;Persona;242567926;Barcelona
+58;Lake Oswego Cnia;Empresa;522150339;Zaragoza
+59;Lancaster Vestimenta;Empresa;510329136;Barcelona
+60;Leo Seguros;Empresa;371310230;Barcelona
+61;Lewis, Charles;Persona;820869845;Zaragoza
+62;Liu, Louis;Persona;815744830;Madrid
+63;Longview Cnia;Empresa;602575964;Alicante
+64;Lopez, Blake;Persona;405976270;Valencia
+65;Madridia Cnia;Empresa;528674787;Valencia
+66;Martinez, Marco;Persona;762462667;Valencia
+67;Miller, Seth;Persona;577563397;Valencia
+68;Mitchell, Connor;Persona;604085596;Málaga
+69;Mitchell, Marcus;Persona;693724543;Málaga
+70;Morgan, Brian;Persona;772069253;Bilbao
+71;Morris, Devin;Persona;570083840;Alicante
+72;Morris, Timothy;Persona;840955365;Alicante
+73;Oleagi Agropecuaria;Empresa;201839058;Pamplona
+74;Oregon Cnia;Empresa;588289798;Madrid
+75;Orlando Cnia;Empresa;458287489;Valencia
+76;Ortega, Marvin;Persona;261853276;Valencia
+77;Pal, Ricardo;Persona;207566479;Madrid
+78;Paris Cnia;Empresa;558593161;Sevilla
+79;Perez, Jeremy;Persona;742873352;Madrid
+80;Ramos, Dwayne;Persona;520366451;Pamplona
+81;Reed, Richard;Persona;377622755;Barcelona
+82;Richardson, Juan;Persona;705774082;Pamplona
+83;Rivera, Adrian;Persona;224254096;Barcelona
+84;Rochester Cnia;Empresa;433705870;Málaga
+85;Rodolfo, Chavez;Persona;823100402;Málaga
+86;Rodriguez, Thomas;Persona;854879196;Barcelona
+87;Ross, Christian;Persona;459974134;Pamplona
+88;Round Ventures;Empresa;231325847;Barcelona
+89;Sanchez, Eduardo;Persona;427898518;Zaragoza
+90;Sanchez, Ian;Persona;249823182;Pamplona
+91;Semillas Santo Mongo;Empresa;395455609;Pamplona
+92;Sharma, Ethan;Persona;574302082;Sevilla
+93;Smith, Jonathan;Persona;441824686;Sevilla
+94;Smith, Julio;Persona;722722460;Madrid
+95;South Portland Cnia;Empresa;644230146;Bilbao
+96;Sunbury Cnia;Empresa;225770681;Madrid
+97;Torres, Isaiah;Persona;586851024;Pamplona
+98;Transportes Pampa;Empresa;397375640;Valencia
+99;Trenton Cnia;Empresa;805211764;Valencia
+100;Turner, Richard;Persona;284736113;Madrid
+101;Victoria Cnia;Empresa;694310799;Alicante
+102;Viga Ingenieros;Empresa;255869094;Málaga
+103;Wapato Cnia;Empresa;501853861;Madrid
+104;Ward, Jeremy;Persona;281797334;Barcelona
+105;Washington, Jack;Persona;490574837;Pamplona
+106;Washington, Jose;Persona;342142162;Sevilla
+107;Zeng, Omar;Persona;256950849;Madrid

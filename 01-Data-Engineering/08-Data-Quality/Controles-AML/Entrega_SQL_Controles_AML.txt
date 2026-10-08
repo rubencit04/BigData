@@ -1,0 +1,155 @@
+﻿ENTREGA - CONTROLES AML EN SQL
+Fuente: TransaccionesAML.xlsx
+Tablas: transacciones, clientes, cuentas, paises, contrapartes
+Motor recomendado: SQLite (compatible con la plantilla de clase)
+
+========================================
+1) TRANSFERENCIAS INTERNACIONALES ENCADENADAS (1 MES)
+Detectar clientes que realizan transferencias a paises de riesgo en una ventana de 30 dias.
+========================================
+WITH tx_riesgo AS (
+  SELECT
+      t.tx_id,
+      t.cliente_id,
+      date(t.fecha_tx) AS fecha_tx,
+      t.pais_contraparte,
+      p.nivel_riesgo,
+      p.en_lista_fatf,
+      p.centro_offshore,
+      p.paraiso_fiscal
+  FROM transacciones t
+  JOIN paises p
+    ON t.pais_contraparte = p.cod_pais
+  WHERE t.tipo_transaccion LIKE 'TRANSFERENCIA%'
+    AND t.pais_contraparte IS NOT NULL
+    AND (
+      p.nivel_riesgo = 'ALTO'
+      OR p.en_lista_fatf = 1
+      OR p.centro_offshore = 1
+      OR p.paraiso_fiscal = 1
+    )
+)
+SELECT
+    t1.cliente_id,
+    t1.tx_id AS tx_inicial,
+    t1.fecha_tx AS fecha_inicial,
+    t2.tx_id AS tx_encadenada,
+    t2.fecha_tx AS fecha_encadenada,
+    t1.pais_contraparte AS pais_1,
+    t2.pais_contraparte AS pais_2
+FROM tx_riesgo t1
+JOIN tx_riesgo t2
+  ON t1.cliente_id = t2.cliente_id
+ AND t1.tx_id <> t2.tx_id
+ AND julianday(t2.fecha_tx) - julianday(t1.fecha_tx) BETWEEN 0 AND 30
+ORDER BY t1.cliente_id, t1.fecha_tx;
+
+
+========================================
+2) TRANSFERENCIAS REPETIDAS CON IMPORTES REDONDOS (1 SEMANA)
+Detectar transferencias en multiplos de 1.000 repetidas para el mismo cliente en 7 dias.
+========================================
+WITH tx_redondas AS (
+  SELECT
+      tx_id,
+      cliente_id,
+      date(fecha_tx) AS fecha_tx,
+      importe
+  FROM transacciones
+  WHERE tipo_transaccion LIKE 'TRANSFERENCIA%'
+    AND importe > 0
+    AND ABS(importe - ROUND(importe, 0)) < 0.0001
+    AND CAST(ROUND(importe, 0) AS INTEGER) % 1000 = 0
+)
+SELECT
+    t1.cliente_id,
+    t1.tx_id AS tx_1,
+    t1.fecha_tx AS fecha_1,
+    t1.importe AS importe_1,
+    t2.tx_id AS tx_2,
+    t2.fecha_tx AS fecha_2,
+    t2.importe AS importe_2
+FROM tx_redondas t1
+JOIN tx_redondas t2
+  ON t1.cliente_id = t2.cliente_id
+ AND t1.tx_id <> t2.tx_id
+ AND julianday(t2.fecha_tx) - julianday(t1.fecha_tx) BETWEEN 0 AND 7
+ORDER BY t1.cliente_id, t1.fecha_tx;
+
+
+========================================
+3) CUENTAS PASARELA (VENTANA DE 48H)
+Detectar cuentas que reciben una transferencia y la reenvian rapidamente.
+========================================
+WITH recibidas AS (
+  SELECT
+      tx_id,
+      cuenta_destino AS cuenta_id,
+      datetime(fecha_tx || ' ' || hora_tx) AS ts_rx,
+      importe AS imp_rx,
+      cliente_id
+  FROM transacciones
+  WHERE tipo_transaccion = 'TRANSFERENCIA_RECIBIDA'
+    AND cuenta_destino IS NOT NULL
+),
+emitidas AS (
+  SELECT
+      tx_id,
+      cuenta_origen AS cuenta_id,
+      datetime(fecha_tx || ' ' || hora_tx) AS ts_tx,
+      importe AS imp_tx,
+      cliente_id
+  FROM transacciones
+  WHERE tipo_transaccion = 'TRANSFERENCIA_EMITIDA'
+    AND cuenta_origen IS NOT NULL
+)
+SELECT
+    r.cuenta_id,
+    r.tx_id AS tx_recibida,
+    r.ts_rx,
+    r.imp_rx,
+    e.tx_id AS tx_emitida,
+    e.ts_tx,
+    e.imp_tx,
+    ROUND((julianday(e.ts_tx) - julianday(r.ts_rx)) * 24, 2) AS horas_diferencia
+FROM recibidas r
+JOIN emitidas e
+  ON r.cuenta_id = e.cuenta_id
+ AND e.ts_tx >= r.ts_rx
+ AND e.ts_tx <= datetime(r.ts_rx, '+48 hours')
+ AND e.imp_tx >= (r.imp_rx * 0.8)
+ORDER BY r.cuenta_id, r.ts_rx;
+
+
+========================================
+4) CUENTA CON UNO O VARIOS TITULARES EN LISTA DE SANCIONES
+Con este dataset cada cuenta tiene 1 titular (cliente_id en cuentas).
+========================================
+SELECT
+    cu.cuenta_id,
+    cu.cliente_id,
+    cl.nombre_completo,
+    cl.en_lista_sanciones,
+    cu.cuenta_activa
+FROM cuentas cu
+JOIN clientes cl
+  ON cu.cliente_id = cl.cliente_id
+WHERE cu.cuenta_activa = 1
+  AND cl.en_lista_sanciones = 1
+ORDER BY cu.cuenta_id;
+
+
+========================================
+5) CLIENTES CON VARIAS CUENTAS ACTIVAS EN DISTINTOS PAISES
+========================================
+SELECT
+    cu.cliente_id,
+    COUNT(*) AS num_cuentas_activas,
+    COUNT(DISTINCT cu.pais_cuenta) AS num_paises,
+    GROUP_CONCAT(DISTINCT cu.pais_cuenta) AS paises
+FROM cuentas cu
+WHERE cu.cuenta_activa = 1
+GROUP BY cu.cliente_id
+HAVING COUNT(DISTINCT cu.pais_cuenta) >= 2
+   AND COUNT(*) >= 2
+ORDER BY num_paises DESC, num_cuentas_activas DESC;
